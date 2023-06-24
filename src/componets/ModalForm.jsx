@@ -9,7 +9,7 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers }) {
     changeShowModal();
   }
 
-  const [showModal, setShowModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -60,11 +60,12 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers }) {
       return;
     }
 
-    createUser(formData)
+    createUser(formData);
+    setShowSuccessModal(true);
   };
 
   const handleSuccessModalClose = () => {
-    setShowModal(false);
+    setShowSuccessModal(false);
     setFormData({
       first_name: '',
       last_name: '',
@@ -88,7 +89,7 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers }) {
 
   return (
     <section className={`fixed top-0 left-0 right-0 h-screen bg-black/40 grid place-content-center ${isShowModal ? 'opacity-100 visible' : 'invisible opacity-0'} transition-opacity`}>
-      {showModal ? (
+      {showSuccessModal ? (
         <SuccessModal closeModal={handleSuccessModalClose} />
       ) : (
         <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center'>
