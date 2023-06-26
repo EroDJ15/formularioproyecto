@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SuccessModal from './SuccessModal';
 import { useForm } from 'react-hook-form';
 
-function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers }) {
+function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers, isUserToUpdate }) {
   const { register, handleSubmit, reset } = useForm();
 
   function handleCloseModal() {
@@ -78,6 +78,7 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers }) {
     setFormErrors({});
     reset();
     getAllUsers();
+    handleCloseModal(); // Cerrar el formulario al cerrar el modal de éxito
   };
 
   const handleChange = (e) => {
@@ -94,7 +95,9 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers }) {
       ) : (
         <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center'>
           <div className='bg-white p-4 rounded-lg grid gap-2'>
-            <h3 className='font-bold text-2xl text-center'>Crear nuevo usuario</h3>
+            <h3 className='font-bold text-2xl text-center'>{isUserToUpdate ?
+              'Actualizar usuario' :
+              'Crear nuevo usuario'}</h3>
             <form className='flex flex-col gap-4 bg-white w-80 relative' onSubmit={handleSubmit(handleFormSubmit)}>
               <input
                 type='text'
