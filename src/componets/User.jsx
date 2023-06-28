@@ -1,22 +1,22 @@
 import React from 'react';
 
-const User = ({ user, deleteUser, editUser, changeShowModal }) => {
+const User = ({ user, deleteUser, setIsEditUser, changeShowModal }) => {
   const handleClickDelete = () => {
     const confirmDelete = window.confirm('¿Está seguro que desea eliminar el usuario?');
     if (confirmDelete) {
       deleteUser(user.id);
+      window.alert('Usuario eliminado con éxito');
     }
   };
 
-  const handleClickUpdate = () => (
-    changeShowModal()
-  )
-
-  const hasBirthday = user.birthday !== null && user.birthday !== undefined;
-
-  const handleClickEdit = () => {
-    editUser(user.id);
+  const handleClickUpdate = () => {
+    changeShowModal();
+    setIsEditUser(user);
   };
+
+  const userBirthday = new Date(user.birthday);
+  userBirthday.setDate(userBirthday.getDate() + 1);
+  const formattedBirthday = userBirthday.toLocaleDateString();
 
   return (
     <article className='p-2 py-4'>
@@ -40,8 +40,8 @@ const User = ({ user, deleteUser, editUser, changeShowModal }) => {
       </div>
       <div>
         <h5 className='font-semibold'>Cumpleaños</h5>
-        <span>{user.birthday ? new Date(user.birthday).toLocaleDateString() : 'no info'}</span>
-        {hasBirthday && <i className='bx bx-gift p-2 hover:text-primary'></i>}
+        <span>{formattedBirthday}</span>
+        {user.birthday && <i className='bx bx-gift p-2 hover:text-primary'></i>}
       </div>
       <section className='rounded-md gap-4'>
         <button onClick={handleClickUpdate}>

@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SuccessModal from './SuccessModal';
 import { useForm } from 'react-hook-form';
 
-function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers, isUserToUpdate }) {
+function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers, isEditUser, upDateUser, resetModalForm }) {
   const { register, handleSubmit, reset } = useForm();
 
   function handleCloseModal() {
     changeShowModal();
+    resetModalForm(reset)
   }
+
+  useEffect(() => {
+    if (isEditUser) {
+      reset(isEditUser);
+    }
+  }, [isEditUser]);
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -60,6 +67,12 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers, isUs
       return;
     }
 
+    if (isEditUser) {
+      upDateUser(formData, reset);
+      setShowSuccessModal(true);
+      return;
+    }
+
     createUser(formData);
     setShowSuccessModal(true);
   };
@@ -78,14 +91,23 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers, isUs
     setFormErrors({});
     reset();
     getAllUsers();
-    handleCloseModal(); // Cerrar el formulario al cerrar el modal de éxito
+    handleCloseModal();
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.type === 'date') {
+      const date = new Date(e.target.value);
+      const isoDate = date.toISOString().split('T')[0];
+      setFormData({
+        ...formData,
+        [e.target.name]: isoDate,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   return (
@@ -95,9 +117,7 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers, isUs
       ) : (
         <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center'>
           <div className='bg-white p-4 rounded-lg grid gap-2'>
-            <h3 className='font-bold text-2xl text-center'>{isUserToUpdate ?
-              'Actualizar usuario' :
-              'Crear nuevo usuario'}</h3>
+            <h3 className='font-bold text-2xl text-center'>{isEditUser ? 'Actualizar usuario' : 'Crear nuevo usuario'}</h3>
             <form className='flex flex-col gap-4 bg-white w-80 relative' onSubmit={handleSubmit(handleFormSubmit)}>
               <input
                 type='text'
@@ -166,7 +186,7 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers, isUs
                 <i className='bx bx-x'></i>
               </button>
               <button className='btn-primary' type='submit'>
-                Crear usuario
+                {isEditUser ? 'Guardar cambios' : 'Crear usuario'}
               </button>
               {Object.keys(formErrors).length > 0 && (
                 <p className='text-red-500 text-xs font-bold text-center mt-2'>Por favor, rellene todos los campos correctamente.</p>
