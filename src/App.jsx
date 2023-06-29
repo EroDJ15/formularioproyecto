@@ -3,7 +3,7 @@ import './App.css';
 import Header from './componets/Header';
 import ModalForm from './componets/ModalForm';
 import axios from 'axios';
-import UserList from './componets/Userlist';
+import UserList from './componets/UserList';
 
 const BASE_URL = 'https://users-crud.academlo.tech';
 
