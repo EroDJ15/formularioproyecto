@@ -111,7 +111,7 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers, isEd
   };
 
   return (
-    <section className={`fixed top-0 left-0 right-0 h-screen bg-black/40 grid place-content-center ${isShowModal ? 'opacity-100 visible' : 'invisible opacity-0'} transition-opacity`}>
+    <section className={`fixed top-0 left-0 right-0 h-screen bg-black/40 grid grid-cols-3 mx-auto place-content-center ${isShowModal ? 'opacity-100 visible' : 'invisible opacity-0'} transition-opacity`}>
       {showSuccessModal ? (
         <SuccessModal closeModal={handleSuccessModalClose} />
       ) : (
@@ -185,7 +185,7 @@ function ModalForm({ isShowModal, changeShowModal, createUser, getAllUsers, isEd
               <button onClick={handleCloseModal} type='button' className='absolute -top-12 -right-2 text-1xl hover:text-secondary'>
                 <i className='bx bx-x'></i>
               </button>
-              <button className='btn-primary' type='submit'>
+              <button className='btn-primary bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type='submit'>
                 {isEditUser ? 'Guardar cambios' : 'Crear usuario'}
               </button>
               {Object.keys(formErrors).length > 0 && (
