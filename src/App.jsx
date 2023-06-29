@@ -74,7 +74,21 @@ function App() {
         resetModalForm={resetModalForm}
       />
 
+
+
       <UserList users={users} deleteUser={deleteUser} changeShowModal={changeShowModal} setIsEditUser={setIsEditUser} />
+      <footer class="flex flex-col items-center py-4">
+        <p class="text-gray-400 text-xs font-semibold">
+          &copy; 2023 Todos los derechos reservados
+        </p>
+        <a href="https://github.com/EroDJ15"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-gray-400 text-xs font-semibold flex items-center mt-1 p-1">
+          <img src="https://img.icons8.com/ios-filled/50/000000/github.png" alt="github" class="w-4 h-4 mr-2 opacity-30" />
+          Created by: Jerovic Pino
+        </a>
+      </footer>
     </main>
   );
 }
