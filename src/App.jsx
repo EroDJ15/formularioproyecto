@@ -88,6 +88,7 @@ function App() {
           <img src="https://img.icons8.com/ios-filled/50/000000/github.png" alt="github" class="w-4 h-4 mr-2 opacity-30" />
           Created by: Jerovic Pino
         </a>
+
       </footer>
     </main>
   );
