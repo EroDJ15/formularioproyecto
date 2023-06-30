@@ -62,7 +62,7 @@ function App() {
   }, []);
 
   return (
-    <main className='font-Roboto'>
+    <><main className='font-Roboto'>
       <Header changeShowModal={changeShowModal} />
       <ModalForm
         changeShowModal={changeShowModal}
@@ -71,13 +71,13 @@ function App() {
         getAllUsers={getAllUsers}
         isEditUser={isEditUser}
         upDateUser={upDateUser}
-        resetModalForm={resetModalForm}
-      />
+        resetModalForm={resetModalForm} />
 
 
 
       <UserList users={users} deleteUser={deleteUser} changeShowModal={changeShowModal} setIsEditUser={setIsEditUser} />
-      <footer class="flex flex-col items-center py-4">
+
+    </main><footer class="flex flex-col items-center py-4">
         <p class="text-gray-400 text-xs font-semibold">
           &copy; 2023 Todos los derechos reservados
         </p>
@@ -89,8 +89,8 @@ function App() {
           Created by: Jerovic Pino
         </a>
 
-      </footer>
-    </main>
+      </footer></>
+
   );
 }
 
